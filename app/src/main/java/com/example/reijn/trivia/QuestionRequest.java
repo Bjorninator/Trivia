@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Request implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class QuestionRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     private Context context;
     private ArrayList<question> list;
@@ -52,7 +52,7 @@ public class Request implements Response.Listener<JSONObject>, Response.ErrorLis
         void gotQuestionError(String message);
     }
 
-    public Request(Context context){
+    public QuestionRequest(Context context){
         this.context = context;
     }
     void getQuestion(Callback activity){

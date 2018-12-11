@@ -1,5 +1,6 @@
 package com.example.reijn.trivia;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -7,15 +8,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpResponse;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class uploadActivity extends AppCompatActivity {
     TextInputLayout naam;
     TextView view;
+    String text;
     int points;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,36 +45,36 @@ public class uploadActivity extends AppCompatActivity {
     }
 
     public void click(View view) {
-        String text = naam.getEditText().getText().toString();
-         https://ide50-reijndersbjorn.cs50.io:8080/list -d "naam=fred" -d "punten=3" -X POST
-         try {
-             URL url = new URL("https://ide50-reijndersbjorn.cs50.io:8080");
-             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-             conn.setRequestMethod("POST");
-             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-             conn.setRequestProperty("Accept","application/json");
-             conn.setDoOutput(true);
-             conn.setDoInput(true);
-
-             JSONObject jsonParam = new JSONObject();
-             jsonParam.put("naam", text);
-             jsonParam.put("punten", points);
-
-             Log.i("JSON", jsonParam.toString());
-             DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-             //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-             os.writeBytes(jsonParam.toString());
-
-             os.flush();
-             os.close();
-
-             Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-             Log.i("MSG" , conn.getResponseMessage());
-
-             conn.disconnect();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-
+        text = naam.getEditText().getText().toString();
+        if (text == null) {
+            text = "anoniem";
+        }
+        //   https://ide50-reijndersbjorn.cs50.io:8080/list -d "naam=fred" -d "punten=3" -X POST
+        RequestQueue myQueue = Volley.newRequestQueue(this);
+        String url = "https://ide50-reijndersbjorn.cs50.io:8080/list";
+        StringRequest strings = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.getMessage());
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("name", text); //Add the data you'd like to send to the server.
+                MyData.put("points", "" + points + "");
+                return MyData;
+            }
+        };
+        myQueue.add(strings);
+        Intent intent = new Intent(uploadActivity.this, LeaderActivity.class);
+        startActivity(intent);
     }
+
+
 }

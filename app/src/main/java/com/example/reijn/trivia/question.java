@@ -1,5 +1,7 @@
 package com.example.reijn.trivia;
 
+import android.text.Html;
+
 public class question {
     String category,typeq,difficulty,question,correct,incorrect1, incorrect2, incorrect3;
 
@@ -13,11 +15,11 @@ public class question {
         this.category = category;
         this.typeq = typeq;
         this.difficulty = difficulty;
-        this.question = question.replace("&#039;","\'").replace("&quot;","\"");
-        this.correct = correct;
-        this.incorrect1 = separated[0];
-        this.incorrect2 = separated[1];
-        this.incorrect3 = separated[2];
+        this.question = Html.fromHtml(question, Html.FROM_HTML_MODE_LEGACY).toString();
+        this.correct = Html.fromHtml(correct,Html.FROM_HTML_MODE_LEGACY).toString();
+        this.incorrect1 = Html.fromHtml(separated[0],Html.FROM_HTML_MODE_LEGACY).toString();
+        this.incorrect2 = Html.fromHtml(separated[1],Html.FROM_HTML_MODE_LEGACY).toString();
+        this.incorrect3 = Html.fromHtml(separated[2],Html.FROM_HTML_MODE_LEGACY).toString();
     }
 
     public void setCategory(String category) {

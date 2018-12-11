@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class QuestionActivity extends AppCompatActivity implements Request.Callback {
+public class QuestionActivity extends AppCompatActivity implements QuestionRequest.Callback {
     int counter = 0;
     int points = 0;
     Button A;
@@ -19,13 +19,14 @@ public class QuestionActivity extends AppCompatActivity implements Request.Callb
     Button C;
     Button D;
     TextView text;
+    TextView punten;
     ArrayList<question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        Request x = new Request(this);
+        QuestionRequest x = new QuestionRequest(this);
         x.getQuestion(this);
 
         A = findViewById(R.id.A);
@@ -33,6 +34,7 @@ public class QuestionActivity extends AppCompatActivity implements Request.Callb
         C = findViewById(R.id.C);
         D = findViewById(R.id.D);
         text = findViewById(R.id.textView2);
+        punten = findViewById(R.id.textView6);
     }
 
     @Override
@@ -87,6 +89,7 @@ public class QuestionActivity extends AppCompatActivity implements Request.Callb
             points++;
         }
         counter++;
+        punten.setText("punten: " + points);
         if(counter == 9 ){
             Intent intent = new Intent(QuestionActivity.this, uploadActivity.class);
             intent.putExtra("punten", points);
