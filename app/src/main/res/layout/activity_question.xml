@@ -16,41 +16,45 @@
         android:textSize="18sp" />
 
     <android.support.v7.widget.GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/A"
-            android:layout_width="190dp"
-            android:layout_height="73dp"
-            android:onClick="clicked"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/B"
-            android:layout_width="190dp"
-            android:layout_height="73dp"
-            android:onClick="clicked"
-            android:text="Button" />
-    </android.support.v7.widget.GridLayout>
-
-    <android.support.v7.widget.GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/C"
-            android:layout_width="190dp"
-            android:layout_height="73dp"
-            android:onClick="clicked"
-            android:text="Button" />
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        app:columnCount="2">
 
         <Button
             android:id="@+id/D"
-            android:layout_width="190dp"
-            android:layout_height="73dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="clicked"
-            android:text="Button" />
+            android:text="Button"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <Button
+            android:id="@+id/C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clicked"
+            android:text="Button"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <Button
+            android:id="@+id/A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clicked"
+            android:text="Button"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <Button
+            android:id="@+id/B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clicked"
+            android:text="Button"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
     </android.support.v7.widget.GridLayout>
 
     <TextView

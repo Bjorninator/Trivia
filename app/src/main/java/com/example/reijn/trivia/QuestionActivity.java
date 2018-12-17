@@ -90,7 +90,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionReque
         }
         counter++;
         punten.setText("punten: " + points);
-        if(counter == 9 ){
+        if(counter == 10 ){
             Intent intent = new Intent(QuestionActivity.this, uploadActivity.class);
             intent.putExtra("punten", points);
             startActivity(intent);
